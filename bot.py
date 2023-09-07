@@ -8,9 +8,9 @@ from discord.utils import get
 from datetime import datetime, timezone
 import asyncio
 
-print("This is here to test if bot-hosting is cloning the repo!")
+#test
 
-load_dotenv() #loads the data in the .env file
+load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
