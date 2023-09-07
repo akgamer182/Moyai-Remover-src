@@ -8,8 +8,6 @@ from discord.utils import get
 from datetime import datetime, timezone
 import asyncio
 
-#test
-
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
@@ -19,7 +17,7 @@ JARVIS_HATES_SWEARING = "<@357298440650358804> This is a server with young child
 async def respond(msg, response, reaction=None): #responds to the message with response 
     if reaction != None: #reaction will be none by default. If a reaction is passed in, it will be added to the message 
         await msg.add_reaction(reaction)
-    await msg.channel.send(response)
+    await msg.reply(response)
 
 # def last_day(month: int, year: int): 
 #     if month in [1, 3, 5, 7, 8, 10, 12]:
