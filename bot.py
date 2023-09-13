@@ -126,6 +126,12 @@ async def getaxoquote(ctx) -> str:
     await respond(ctx.message, axoquotes[randint(0, len(axoquotes)-1)], '🇰')
 
 @bot.event
+async def on_member_update(bef, aft):
+    if bot.user.display_name != "Moyai Remover":
+        await bot.user.edit(nick="Moyai Remover")
+
+
+@bot.event
 async def on_raw_reaction_add(raw_reaction_thing_idfk): #stops people from moyai, skull, and hamsa reacting the moyai immune
     print(str(raw_reaction_thing_idfk.emoji))
     MOYAI_IMMUNE = [357298440650358804]
