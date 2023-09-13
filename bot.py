@@ -105,6 +105,7 @@ async def toggleHamsaRemoverKill(ctx):
     if ctx.message.author.id != 357298440650358804:
         return
     hamsaKilled = not hamsaKilled
+    respond(ctx.message, f'Killing hamsa: {hamsaKilled}', '🇰')
 
 @bot.command()
 async def blm(ctx): #kicks 9Stein and mochi from the vc
