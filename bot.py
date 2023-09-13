@@ -55,7 +55,7 @@ intents = discord.Intents.all()
 bot = myBot(command_prefix="!", intents=intents)
 
 
-
+hamsaKilled = False
 thething = " Dungeons have already been released on Enderscape. They were added to the game last week and have been a huge hit with players. Have you had a chance to check them out yet?"
 server = None
 debounce = -696969
@@ -100,6 +100,13 @@ async def disconnectazif(ctx):
     return
 
 @bot.command()
+async def toggleHamsaRemoverKill(ctx):
+    global hamsaKilled
+    if ctx.message.author.id != 357298440650358804:
+        return
+    hamsaKilled = not hamsaKilled
+
+@bot.command()
 async def blm(ctx): #kicks 9Stein and mochi from the vc
     racists = [841782231407001651, 1071868068323663952]
     for id in racists:
@@ -123,6 +130,9 @@ async def on_raw_reaction_add(raw_reaction_thing_idfk): #stops people from moyai
     MOYAI_IMMUNE = [357298440650358804]
     AXOS_CUSTOM_MOYAIS = ["hamza", "akreaction"]
     message = await fetch_message(raw_reaction_thing_idfk)
+    if raw_reaction_thing_idfk.member.id == 1149715783086247936:
+        await message.remove_reaction(str(raw_reaction_thing_idfk.emoji), raw_reaction_thing_idfk.member)
+        return
     if (str(raw_reaction_thing_idfk.emoji) in ["💀", '\U0001faac', "🗿", "😠"] or str.casefold(raw_reaction_thing_idfk.emoji.name) in AXOS_CUSTOM_MOYAIS) and message.author.id in MOYAI_IMMUNE:
         await message.remove_reaction(str(raw_reaction_thing_idfk.emoji), raw_reaction_thing_idfk.member)
 
@@ -131,6 +141,7 @@ async def on_raw_reaction_add(raw_reaction_thing_idfk): #stops people from moyai
 async def on_message(message):
     global resCount
     global debounce
+    global hamsaKilled
     print(f"\"{message.content}\"")
     await bot.process_commands(message) #If you override on_message, you must put this in or your commands will not work!
     if message.author == bot.user: #If the message is sent by the bot, return.
@@ -141,8 +152,12 @@ async def on_message(message):
         except:
             response = f'P!warn <@889681126539546644>'
         await respond(message, response, '🇰')
+    if message.author.id == 1149715783086247936 and hamsaKilled:
+        await message.delete()
+        return
     if message.author.id == 1138901550312460299 and message.content == JARVIS_HATES_SWEARING:
         await message.delete()
+        return
     if message.channel.id == 1129151660053250170 and message.author.id == 1138901550312460299:
         if resCount > 69:
             resCount = 0
