@@ -121,9 +121,13 @@ async def removegod(ctx): #kicks cheese from vc
     await respond(ctx.message, "Removing god from the vc!", '🇰')
 
 @bot.command()
-async def getaxoquote(ctx) -> str:
+async def getaxoquote(ctx) -> None:
     axoquotes = ["@animal the n-bee wants you", "hien", "(you were supposed to react with moai)", "\"@moai the n- rat wants you\"", "Why cant I hamsa this message", "Can we make it say literally anything else", "NBC", "SERVER UPDATES: Anyone can now use the newest bot to remove azif and/or 9stein from vcs", "Dang I have to ban the whole server", "Im just doing what typical servers do for age check", "NBC NBC NBC NBC NBC"]
     await respond(ctx.message, axoquotes[randint(0, len(axoquotes)-1)], '🇰')
+
+@bot.command()
+async def sourcecode(ctx) -> None:
+    await respond(ctx.message, "My source code can be found here: https://github.com/akgamer182/Moyai-Remover-src")
 
 @bot.event
 async def on_member_update(bef, aft):
