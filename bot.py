@@ -131,8 +131,9 @@ async def sourcecode(ctx) -> None:
 
 @bot.event
 async def on_member_update(bef, aft):
-    if bot.user.display_name != "Moyai Remover":
-        await bot.user.edit(nick="Moyai Remover")
+    robot = server.fetch_member(1088306252246945843)
+    if robot.display_name != "Moyai Remover":
+        await robot.edit(nick="Moyai Remover")
 
 
 @bot.event
