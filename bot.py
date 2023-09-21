@@ -136,16 +136,17 @@ async def getbirmquote(ctx) -> None:
 
 
 @bot.event
-async def on_raw_reaction_add(raw_reaction_thing_idfk): #stops people from moyai, skull, and hamsa reacting the moyai immune
-    print(str(raw_reaction_thing_idfk.emoji))
+async def on_raw_reaction_add(reaction): #stops people from moyai, skull, and hamsa reacting the moyai immune
+    print(str(reaction.emoji))
     MOYAI_IMMUNE = [357298440650358804]
-    AXOS_CUSTOM_MOYAIS = ["hamza", "akreaction"]
-    message = await fetch_message(raw_reaction_thing_idfk)
-    if raw_reaction_thing_idfk.member.id == 1149715783086247936:
-        await message.remove_reaction(str(raw_reaction_thing_idfk.emoji), raw_reaction_thing_idfk.member)
+    message = await fetch_message(reaction)
+    if reaction.member.id == 1149715783086247936:
+        await message.remove_reaction(str(reaction.emoji), reaction.member)
         return
-    if (str(raw_reaction_thing_idfk.emoji) in ["💀", '\U0001faac', "🗿", "😠"] or str.casefold(raw_reaction_thing_idfk.emoji.name) in AXOS_CUSTOM_MOYAIS) and message.author.id in MOYAI_IMMUNE:
-        await message.remove_reaction(str(raw_reaction_thing_idfk.emoji), raw_reaction_thing_idfk.member)
+    
+    WHITELISTED_EMOJIS = ["❤"]
+    if (not str(reaction.emoji) in WHITELISTED_EMOJIS) and message.author.id in MOYAI_IMMUNE:
+        await message.remove_reaction(str(reaction.emoji), reaction.member)
 
 
 @bot.event
