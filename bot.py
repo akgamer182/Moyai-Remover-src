@@ -133,11 +133,6 @@ async def sourcecode(ctx) -> None:
 async def getbirmquote(ctx) -> None:
     await respond(ctx.message, "!getbirmquote")
 
-@bot.event
-async def on_member_update(bef, aft):
-    robot = server.fetch_member(1088306252246945843)
-    if robot.display_name != "Moyai Remover":
-        await robot.edit(nick="Moyai Remover")
 
 
 @bot.event
