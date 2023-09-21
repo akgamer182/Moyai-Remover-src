@@ -129,6 +129,10 @@ async def getaxoquote(ctx) -> None:
 async def sourcecode(ctx) -> None:
     await respond(ctx.message, "My source code can be found here: https://github.com/akgamer182/Moyai-Remover-src")
 
+@bot.command()
+async def getbirmquote(ctx) -> None:
+    await respond(ctx.message, "!getbirmquote")
+
 @bot.event
 async def on_member_update(bef, aft):
     robot = server.fetch_member(1088306252246945843)
@@ -155,9 +159,9 @@ async def on_message(message):
     global debounce
     global hamsaKilled
     print(f"\"{message.content}\"")
-    await bot.process_commands(message) #If you override on_message, you must put this in or your commands will not work!
     if message.author == bot.user: #If the message is sent by the bot, return.
         return
+    await bot.process_commands(message) #If you override on_message, you must put this in or your commands will not work!
     if message.author.id == 357298440650358804 and "MR!warn <@889681126539546644>" in message.content:
         try:
             response = f'P!warn <@889681126539546644>{message.content[29::]}'
