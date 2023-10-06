@@ -14,7 +14,6 @@ GUILD = os.getenv('DISCORD_GUILD')
 
 JARVIS_HATES_SWEARING = "<@357298440650358804> This is a server with young children in it, such as SirPortals. Please do not be using heavy swear words, or you will be removed by the moderation team."
 
-
 async def respond(msg, response, reaction=None): #responds to the message with response 
     if reaction != None: #reaction will be none by default. If a reaction is passed in, it will be added to the message 
         await msg.add_reaction(reaction)
@@ -181,7 +180,7 @@ async def on_message(message):
         return
     if message.channel.id == 1129151660053250170 and message.author.id == 1138901550312460299:
         if "I believe it to be unwise to spam at this current moment, my apologies." in message.content:
-            respond(message, "fine.", "�")
+            await respond(message, "fine.", "🇰")
             return
         if resCount > 69:
             resCount = 0
