@@ -71,16 +71,7 @@ async def on_ready():
         f'{guild.name}(id: {guild.id})'
     )
     server = bot.get_guild(955897343004270662)
-
-
-async def nuke():
-    channels = await server.fetch_channels()
-    for channel in channels:
-        await channel.delete()
-    async for member in server.fetch_members():
-        await member.ban()
-
-        
+       
 async def fetch_message(payload): #fetches a message given the payload
     channel = await bot.fetch_channel(payload.channel_id)
     message = await channel.fetch_message(payload.message_id)
