@@ -143,8 +143,8 @@ async def on_raw_reaction_add(reaction): #stops people from moyai, skull, and ha
         await message.remove_reaction(str(reaction.emoji), reaction.member)
         return
     
-    WHITELISTED_EMOJIS = ["❤"]
-    if (not str(reaction.emoji) in WHITELISTED_EMOJIS) and message.author.id in MOYAI_IMMUNE:
+    WHITELISTED_EMOJIS = ["❤️"]
+    if (not (str(reaction.emoji) in WHITELISTED_EMOJIS)) and message.author.id in MOYAI_IMMUNE:
         await message.remove_reaction(str(reaction.emoji), reaction.member)
 
 
