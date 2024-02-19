@@ -23,32 +23,8 @@ class myBot(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
-    async def setup_hook(self) -> None:
-        self.bg_task = self.loop.create_task(self.my_background_task())
-    
     async def on_ready(self):
         print("Ready!")
-
-    async def my_background_task(self):
-        await self.wait_until_ready()
-        while True:
-            print(self.is_closed())
-            print("running")
-            DT = datetime.now(timezone.utc)
-            channel = await self.fetch_channel(1142703505065398322)
-            NoNeedChannel = await self.fetch_channel(1143636311459246110)
-            t0 = time()
-            if (DT.hour == 0 and DT.minute == 0):
-                await NoNeedChannel.send("No need to ban me. Cuz y’all mf’s obviously can’t get over what happened that one time on the Vc. Which is stupid asf and childish. And idgaf if y’all think I’m racist etc. because I’m not. And you can think I am idc. But get your facts and shit straight. Cuz I’m leaving this server. And whoever I added as a friend I’m blocking your ass. So no need to ban me.")
-            if (DT.hour % 2 == 0 and DT.minute == 0):
-            #if (True): #this is for debug, use the first one when not
-                await channel.send("<@&1142700126045999184> Please use /bump so that we can get new members")
-                #await channel.send("Test")
-                #switch to the second one when debugging lmao
-            try:
-                await asyncio.sleep(60-(time()-t0))
-            except:
-                print(f"Starting the next loop behind by {round(-1*(60-(time()-t0)), 1)} seconds")
 
 
 intents = discord.Intents.all()
@@ -107,6 +83,19 @@ async def toggleHamsaRemoverKill(ctx):
     await respond(ctx.message, f'Killing hamsa: {hamsaKilled}', '🇰')
 
 @bot.command()
+async def say(ctx):
+    print("say running")
+    if ctx.message.author.id != 357298440650358804:
+        return
+    fullmsg = " ".join(ctx.message.content.split()[2::])
+    channel = ctx.message.content.split()[1]
+
+    for textchannel in bot.get_all_channels():
+        if textchannel.name == channel or str(textchannel.id) == channel:
+            await textchannel.send(fullmsg)
+            return
+
+@bot.command()
 async def blm(ctx): #kicks 9Stein and mochi from the vc
     racists = [841782231407001651, 1071868068323663952]
     for id in racists:
@@ -153,7 +142,12 @@ async def on_message(message):
     global resCount
     global debounce
     global hamsaKilled
-    print(f"\"{message.content}\"")
+    
+    if message.channel.id == 1061901608079863839 and message.author == bot.user: #If the message is sent in the test channel, return.
+        return
+    channel = await bot.fetch_channel(1061901608079863839)
+    await channel.send(f"\"{message.content}\" in the channel {message.channel.name} in {message.channel.guild} by {message.author.name}")
+    print(f"\"{message.content}\" in the channel {message.channel.name} in {message.channel.guild} by {message.author.name}")
     if message.author == bot.user: #If the message is sent by the bot, return.
         return
     await bot.process_commands(message) #If you override on_message, you must put this in or your commands will not work!
@@ -183,22 +177,23 @@ async def on_message(message):
         response = "<@" + str(message.author.id) + ">" + thething
         await respond(message, response, '🗿')
         return
-    # if str.casefold(message.content) == "!demotemoyai":
-    #     print("demoting moyai")
-    #     await message.add_reaction('🇰')
-    #     response = "Demoting the moyai!!!"
-    #     await message.channel.send(response)
-    #     member = await server.fetch_member(889681126539546644) 
-    #     role = get(member.guild.roles, name="Defender-cho")
-    #     await member.remove_roles(role)
-    #     return
-    # if str.casefold(message.content) == "!promotemoyai":
-    #     print("promoting moyai")
-    #     await message.add_reaction('🇰')
-    #     response = "Promoting the moyai!"
-    #     await message.channel.send(response)
-    #     member = await server.fetch_member(889681126539546644) 
-    #     role = get(member.guild.roles, name="Defender-cho")
-    #     await member.add_roles(role)
-    #     return
+    
+    if str.casefold(message.content) == "!demotesans":
+        print("demoting moyai")
+        await message.add_reaction('🇰')
+        response = "Demoting the op!!!"
+        await message.channel.send(response)
+        member = await server.fetch_member(936408654352101416) 
+        role = get(member.guild.roles, name="#1 Jailbird god")
+        await member.remove_roles(role)
+        return
+    if str.casefold(message.content) == "!promoteack":
+        print("promoting ack")
+        await message.add_reaction('🇰')
+        response = "Promoting the ack!"
+        await message.channel.send(response)
+        member = await server.fetch_member(889681126539546644) 
+        role = get(member.guild.roles, name="Defender-cho")
+        await member.add_roles(role)
+        return
 bot.run(TOKEN)
