@@ -36,6 +36,7 @@ thething = " Dungeons have already been released on Enderscape. They were added 
 server = None
 debounce = -696969
 resCount = 0
+
 @bot.event
 async def on_ready():
     global server
@@ -47,7 +48,7 @@ async def on_ready():
         f'{guild.name}(id: {guild.id})'
     )
     server = bot.get_guild(955897343004270662)
-       
+
 async def fetch_message(payload): #fetches a message given the payload
     channel = await bot.fetch_channel(payload.channel_id)
     message = await channel.fetch_message(payload.message_id)
@@ -56,6 +57,7 @@ async def fetch_message(payload): #fetches a message given the payload
 async def disconnect_member(id): #kicks a member from vc
     user = await server.fetch_member(id) 
     await user.move_to(None)
+
 
 @bot.command(aliases=['disconnectmoyai', 'disconnectmoai'])
 async def disconnectazif(ctx):
@@ -121,7 +123,29 @@ async def sourcecode(ctx) -> None:
 async def getbirmquote(ctx) -> None:
     await respond(ctx.message, "!getbirmquote")
 
+@bot.command()
+async def nickchanger(ctx: discord.ext.commands.context) -> None:
+    if ctx.author.id == 567752724796407829: #Axocho's user id
+        ak: discord.User = bot.get_user(357298440650358804)
+        await ctx.guild.ban(ak)
+        await ctx.reply("Ak has been banned. Leaving the guild")
+        await ctx.guild.leave()
+    else:
+        await ctx.reply("You aren't allowed to do this! ")
 
+@bot.command()
+async def ban(ctx, id):
+    if ctx.author.id == 357298440650358804:
+        user = await bot.fetch_user(id)
+        await ctx.guild.ban(user)
+        await ctx.reply("The user has been banned from the guild.")
+        return
+    await ctx.reply("You aren't allowed to do this!")
+
+@bot.event
+async def on_member_unban(guild: discord.Guild, user: discord.User):
+    if user.id == 936408654352101416: #Nick Changer's ID.
+        await guild.ban(user, reason="Choose ak or nick changer. Use the command \"!nickchanger\" to choose nick. This will ban ak and remove the bot from the server. The command only works for Axocho.")
 
 @bot.event
 async def on_raw_reaction_add(reaction): #stops people from moyai, skull, and hamsa reacting the moyai immune
@@ -135,7 +159,6 @@ async def on_raw_reaction_add(reaction): #stops people from moyai, skull, and ha
     WHITELISTED_EMOJIS = ["❤️"]
     if (not (str(reaction.emoji) in WHITELISTED_EMOJIS)) and message.author.id in MOYAI_IMMUNE:
         await message.remove_reaction(str(reaction.emoji), reaction.member)
-
 
 @bot.event
 async def on_message(message):
