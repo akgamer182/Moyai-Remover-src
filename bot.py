@@ -142,6 +142,19 @@ async def ban(ctx, id):
         return
     await ctx.reply("You aren't allowed to do this!")
 
+@bot.command()
+async def removerole(ctx, userid, role_name):
+    if ctx.author.id == 357298440650358804: #aks id
+        print(f"demoting user with id {userid}")
+
+        member = await server.fetch_member(userid) 
+        role = get(member.guild.roles, name=role_name)
+        await member.remove_roles(role)
+        await ctx.reply(f"Successfully removed role {role_name} from user {member.name}")
+        return
+        
+    await ctx.reply("You are not allowed to do this!")
+
 @bot.event
 async def on_member_unban(guild: discord.Guild, user: discord.User):
     if user.id == 936408654352101416: #Nick Changer's ID.
