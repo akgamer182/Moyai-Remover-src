@@ -12,6 +12,7 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
+
 JARVIS_HATES_SWEARING = "<@357298440650358804> This is a server with young children in it, such as SirPortals. Please do not be using heavy swear words, or you will be removed by the moderation team."
 
 async def respond(msg, response, reaction=None): #responds to the message with response 
@@ -40,6 +41,8 @@ resCount = 0
 @bot.event
 async def on_ready():
     global server
+    global LOG_CHANNEL
+    LOG_CHANNEL = await bot.fetch_channel(1061901608079863839)
     for guild in bot.guilds:
         if guild.name == GUILD:
             break
@@ -181,8 +184,7 @@ async def on_message(message):
     
     if message.channel.id == 1061901608079863839 and message.author == bot.user: #If the message is sent in the test channel, return.
         return
-    channel = await bot.fetch_channel(1061901608079863839)
-    await channel.send(f"\"{message.content}\" in the channel {message.channel.name} in {message.channel.guild} by {message.author.name}")
+    await LOG_CHANNEL.send(f"\"{message.content}\" in the channel {message.channel.name} in {message.channel.guild} by {message.author.name}")
     print(f"\"{message.content}\" in the channel {message.channel.name} in {message.channel.guild} by {message.author.name}")
     if message.author == bot.user: #If the message is sent by the bot, return.
         return
