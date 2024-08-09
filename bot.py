@@ -195,6 +195,11 @@ async def on_message(message):
     global debounce
     global hamsaKilled
     
+    if message.channel.id == 1243053711111225345 and message.author.id == 1243054415926267944: #fuck this i dont care
+        log_channel = await bot.fetch_channel(1210737048353374209) 
+        await log_channel.send("Dyno log intercepted!", embeds=message.embeds)
+        return
+    
     if message.channel.id == 1061901608079863839 and message.author == bot.user: #If the message is sent in the test channel, return.
         return
     await LOG_CHANNEL.send(f"\"{message.content}\" in the channel {message.channel.name} in {message.channel.guild} by {message.author.name}")
