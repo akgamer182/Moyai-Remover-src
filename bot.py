@@ -202,7 +202,7 @@ async def on_message(message):
     
     if message.channel.id == 1061901608079863839 and message.author == bot.user: #If the message is sent in the test channel, return.
         return
-    await LOG_CHANNEL.send(f"\"{message.content}\" in the channel {message.channel.name} in {message.channel.guild} by {message.author.name}")
+    await LOG_CHANNEL.send(f"\"{message.content}\" in the channel {message.channel.name} in {message.channel.guild} by {message.author.name}", embeds=message.embeds)
     print(f"\"{message.content}\" in the channel {message.channel.name} in {message.channel.guild} by {message.author.name}")
     if message.author == bot.user: #If the message is sent by the bot, return.
         return
